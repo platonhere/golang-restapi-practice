@@ -21,6 +21,15 @@ func TestUserRepository_Create(t *testing.T) {
 	assert.NotNil(t, u)
 }
 
+func TestUserRepository_Find(t *testing.T) {
+	s := teststore.New()
+	u := model.TestUser(t)
+	s.User().Create(u)
+	u, err := s.User().Find(u.ID)
+	assert.NoError(t, err)
+	assert.NotNil(t, u)
+}
+
 // TestStore открывает соединение с тестовой БД, defer teardown("users") очищает таблицу после теста.
 // Тест проверяет метод FindByEmail репозитория UserRepository.
 // Сначала проверяется, что поиск пользователя в пустой таблице возвращает ошибку.
